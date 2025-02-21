@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickmortygson.R
+import com.example.rickmortygson.model.Character
 import com.example.rickmortygson.repository.CharacterRepo
 import com.example.rickmortygson.ui.states.AppStates
 import kotlinx.coroutines.launch
-import com.example.rickmortygson.model.Character
 
 class CharacterViewModel : ViewModel() {
 
@@ -18,17 +18,18 @@ class CharacterViewModel : ViewModel() {
     private val _state = MutableLiveData<AppStates>(AppStates.None)
     val state: LiveData<AppStates> = _state
 
-    private val allCharacters = mutableListOf<Character>()
+    private var allCharacters = mutableListOf<Character>()
     private var currentPage = 1
     private var totalPages = Int.MAX_VALUE
+    private var currentQuery: String? = null
 
-    fun fetchCharacters() {
+    fun fetchCharacters(query: String? = currentQuery) {
         if (currentPage > totalPages) return
 
         _state.value = AppStates.Loading
         viewModelScope.launch {
             try {
-                val response = characterRepo.fetchCharacters(currentPage)
+                val response = characterRepo.fetchCharacters(currentPage, query)
                 totalPages = response.info.pages
                 allCharacters.addAll(response.results)
                 _state.value = AppStates.Success(allCharacters.toList())
@@ -38,6 +39,14 @@ class CharacterViewModel : ViewModel() {
                 _state.value = AppStates.Error(R.string.error_message)
             }
         }
+    }
+
+    fun resetSearch(query: String?) {
+        currentQuery = query
+        currentPage = 1
+        totalPages = Int.MAX_VALUE
+        allCharacters.clear()
+        fetchCharacters(query)
     }
 }
 
