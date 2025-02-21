@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.rickmortygson.R
 import com.example.rickmortygson.databinding.ActivityMainBinding
 import com.example.rickmortygson.ui.states.AppStates
@@ -31,6 +32,13 @@ class CharacterActivity : AppCompatActivity() {
         binding.charactersView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = this@CharacterActivity.adapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (!recyclerView.canScrollVertically(1)) {
+                        viewModel.fetchCharacters()
+                    }
+                }
+            })
         }
     }
 
@@ -43,18 +51,18 @@ class CharacterActivity : AppCompatActivity() {
                 }
 
                 AppStates.Loading -> {
-                    binding.charactersView.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
 
-                AppStates.None -> {}
-                is AppStates.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.charactersView.visibility = View.VISIBLE
-                    adapter.loadUsers(state.characters)  // or rename loadUsers() to loadCharacters()
+                AppStates.None -> { /* Do nothing */
                 }
 
+                is AppStates.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    adapter.loadUsers(state.characters)
+                }
             }
         }
     }
 }
+
