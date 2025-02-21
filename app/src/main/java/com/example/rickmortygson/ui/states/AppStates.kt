@@ -1,11 +1,10 @@
 package com.example.rickmortygson.ui.states
 
-sealed class AppStates<T>(val data: T? = null, val message: String? = null) {
+import com.example.rickmortygson.model.Character
 
-    class Success<T>(data: T) : AppStates<T>(data)
-
-    class Loading<T>(data: T? = null) : AppStates<T>(data)
-
-    class Error<T>(message: String, data: T? = null) : AppStates<T>(data, message)
-
+sealed class AppStates {
+    data object None : AppStates()
+    data object Loading : AppStates()
+    data class Success(val users: List<Character>) : AppStates()
+    data class Error(val message: Int) : AppStates()
 }

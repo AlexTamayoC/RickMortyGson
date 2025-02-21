@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
+val major = 0
+val minor = 0
+val patch = 1
+
 android {
     namespace = "com.example.rickmortygson"
     compileSdk = 35
@@ -18,6 +22,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -46,6 +55,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
