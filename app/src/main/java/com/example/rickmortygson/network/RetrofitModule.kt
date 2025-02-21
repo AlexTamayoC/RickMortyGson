@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitModule {
 
-    private const val BASE_URL = "https://randomuser.me/"
+    private const val BASE_URL = "https://rickandmortyapi.com/api/"
 
     private fun getLoggingInterceptor(): Interceptor {
         val level =
