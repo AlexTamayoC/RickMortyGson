@@ -37,8 +37,7 @@ class CharacterActivity : AppCompatActivity() {
     private fun observeDataChanges() {
         viewModel.state.observe(this) { state ->
             when (state) {
-                is
-                AppStates.Error -> {
+                is AppStates.Error -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show()
                 }
@@ -52,8 +51,9 @@ class CharacterActivity : AppCompatActivity() {
                 is AppStates.Success -> {
                     binding.progressBar.visibility = View.GONE
                     binding.charactersView.visibility = View.VISIBLE
-                    adapter.loadUsers(state.users)
+                    adapter.loadUsers(state.characters)  // or rename loadUsers() to loadCharacters()
                 }
+
             }
         }
     }

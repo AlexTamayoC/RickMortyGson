@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RickMortyGson</string>
+    <string name="error_message">An error occurred. Please try again later.</string>
 </resources>
