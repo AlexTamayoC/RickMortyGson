@@ -1,5 +1,6 @@
 package com.example.rickmortygson.network
 
+import com.example.rickmortygson.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
