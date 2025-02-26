@@ -9,11 +9,14 @@ import com.example.rickmortygson.R
 import com.example.rickmortygson.model.Character
 import com.example.rickmortygson.repository.CharacterRepo
 import com.example.rickmortygson.ui.states.AppStates
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharacterViewModel : ViewModel() {
-
-    private val characterRepo = CharacterRepo()
+@HiltViewModel
+class CharacterViewModel @Inject constructor(
+    private val characterRepo: CharacterRepo
+) : ViewModel() {
 
     private val _state = MutableLiveData<AppStates>(AppStates.None)
     val state: LiveData<AppStates> = _state
@@ -49,6 +52,7 @@ class CharacterViewModel : ViewModel() {
         fetchCharacters(query)
     }
 }
+
 
 
 

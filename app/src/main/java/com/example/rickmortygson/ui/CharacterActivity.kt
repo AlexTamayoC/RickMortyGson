@@ -4,20 +4,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickmortygson.R
 import com.example.rickmortygson.databinding.ActivityMainBinding
 import com.example.rickmortygson.ui.states.AppStates
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharacterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: CharacterAdapter
-    private val viewModel: CharacterViewModel by lazy {
-        CharacterViewModel()
-    }
+
+    private val viewModel: CharacterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

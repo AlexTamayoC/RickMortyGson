@@ -2,14 +2,14 @@ package com.example.rickmortygson.repository
 
 import com.example.rickmortygson.model.CharactersPageResponse
 import com.example.rickmortygson.network.CharacterAPI
-import com.example.rickmortygson.network.RetrofitModule
+import com.example.rickmortygson.repository.IoDispatcher.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class CharacterRepo(
-    private val api: CharacterAPI = RetrofitModule.createAPI(),
-    private val networkDispatcher: CoroutineDispatcher = Dispatchers.IO
+class CharacterRepo @Inject constructor(
+    private val api: CharacterAPI,
+    @IoDispatcher private val networkDispatcher: CoroutineDispatcher
 ) {
     suspend fun fetchCharacters(page: Int, query: String? = null): CharactersPageResponse {
         return withContext(networkDispatcher) {
@@ -22,6 +22,7 @@ class CharacterRepo(
         }
     }
 }
+
 
 
 

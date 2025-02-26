@@ -17,5 +17,4 @@ class CharacterViewHolder(
             placeholder(R.drawable.user_placeholder)
             crossfade(true)
     }
-
 }}

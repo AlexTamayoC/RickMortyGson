@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 val major = 0
@@ -47,6 +49,9 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -68,4 +73,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation("com.google.dagger:hilt-android:2.55")
+    kapt ("com.google.dagger:hilt-compiler:2.55")
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.55")
+    kaptAndroidTest("com.google.dagger:hilt-compiler:2.55")
+    testImplementation("com.google.dagger:hilt-android-testing:2.55")
+    kaptTest ("com.google.dagger:hilt-compiler:2.55")
 }
